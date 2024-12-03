@@ -334,7 +334,7 @@ executable(
   install_dir: daemon_dir
 )
 
-if libgbinder.found()
+if libgbinder.found() and binder_ndk.found()
   executable(
     'fwupd-binder',
     fwupdengine_rs,
@@ -344,6 +344,7 @@ if libgbinder.found()
       daemon_loader_src,
       'fu-daemon.c',
       'fu-binder-daemon.c',
+      'gparcelable.c',
     ],
     include_directories: [
       root_incdir,
@@ -355,6 +356,7 @@ if libgbinder.found()
       libsystemd,
       engine_dep,
       libgbinder,
+      binder_ndk,
     ],
     link_with: [
       fwupdengine,
